@@ -6,17 +6,9 @@ import { CYBERSECURITY_CATEGORIES, CYBERSECURITY_TAGS } from "@/lib/types"
 import { Pagination } from "@/components/pagination"
 import { searchPapers } from "@/lib/arxiv"
 
-// Configure for static export
-export const dynamic = 'force-static'
-export const revalidate = false
-
-// Pre-generate the minimal set of static paths
-export function generateStaticParams() {
-  return [
-    // Home page without any params
-    {}
-  ]
-}
+// Configure for dynamic content with real-time API
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 interface HomeProps {
   searchParams: {
@@ -29,11 +21,12 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  // For static export, we'll provide default content regardless of search params
-  // This will be enhanced with client-side fetching for actual search results after hydration
-  
-  // Default values for static generation
-  const defaultCategory = "cs.CR"; // Default to Cryptography and Security
+  // Parse search parameters
+  const query = searchParams.q || "";
+  const year = searchParams.year;
+  const category = searchParams.category || "cs.CR"; // Default to Cryptography and Security
+  const tag = searchParams.tag;
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
   
   return (
     <div className="container max-w-[1920px] mx-auto px-4 py-8">
@@ -42,7 +35,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
           Browse, search and filter the latest cybersecurity research papers from arXiv
         </p>
-        <SearchForm className="mx-auto max-w-2xl" defaultValue="" />
+        <SearchForm className="mx-auto max-w-2xl" defaultValue={query} />
       </section>
 
       <section className="mb-8">
@@ -52,12 +45,12 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="flex flex-wrap items-start gap-6">
           <div className="flex-1">
             <CategoryTags 
-              selectedCategory={defaultCategory} 
-              selectedTag={undefined}
+              selectedCategory={category} 
+              selectedTag={tag}
             />
           </div>
           <div className="w-48">
-            <YearFilter selectedYear={undefined} />
+            <YearFilter selectedYear={year} />
           </div>
         </div>
       </section>
@@ -67,11 +60,11 @@ export default async function Home({ searchParams }: HomeProps) {
           <h2 className="text-2xl font-heading">Latest Cybersecurity Research</h2>
         </div>
         <LatestPapers 
-          query=""
-          year={undefined}
-          category={defaultCategory}
-          tag={undefined}
-          page={1}
+          query={query}
+          year={year}
+          category={category}
+          tag={tag}
+          page={page}
         />
       </section>
     </div>

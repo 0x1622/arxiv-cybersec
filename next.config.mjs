@@ -24,21 +24,15 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
-    // Explicitly configure for static export
-    output: 'export',
-    distDir: 'out',
-    trailingSlash: true,
-    // Disable server components for static export
+    // Enable server-side rendering for real-time API
     experimental: {
         webpackBuildWorker: true,
         parallelServerBuildTraces: true,
         parallelServerCompiles: true,
     },
-    basePath: '',
-    assetPrefix: '/',
     env: {
-        NEXT_STATIC_EXPORT: 'true',
-        NODE_ENV: 'production'
+        NEXT_STATIC_EXPORT: 'false',
+        NODE_ENV: 'development'
     }
 }
 
