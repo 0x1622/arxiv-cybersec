@@ -14,13 +14,16 @@ interface PaperPageProps {
   }
 }
 
-// Add generateStaticParams function for static export
-export async function generateStaticParams() {
+// Configure for static export
+export const dynamic = 'force-static'
+export const revalidate = false 
+
+// Fixed generateStaticParams function for static export
+export function generateStaticParams() {
   // For static export, provide a minimal set of paper IDs
-  // In a real-world scenario, you might want to fetch the most popular papers
   return [
-    { id: "2104.02767" }, // Example ID for a cybersecurity paper
-    { id: "2307.09658" }, // Example ID for another paper
+    { id: "2104.02767" },
+    { id: "2307.09658" },
   ]
 }
 
