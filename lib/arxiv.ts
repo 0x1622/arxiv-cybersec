@@ -154,7 +154,7 @@ export async function searchPapers({ query, year, category, tag, page = 1 }: Sea
     url.searchParams.append("search_query", searchQuery)
     url.searchParams.append("start", startIndex.toString())
     url.searchParams.append("max_results", itemsPerPage.toString())
-    url.searchParams.append("sortBy", "relevance")
+    url.searchParams.append("sortBy", "submittedDate")
     url.searchParams.append("sortOrder", "descending")
 
     // Set proper headers
