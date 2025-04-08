@@ -31,7 +31,7 @@ export function PaperCard({ paper }: PaperCardProps) {
   return (
     <Card className="transition-all hover:border-primary/50 flex flex-col h-[240px] overflow-hidden group">
       <CardHeader className="flex-none py-2 px-4">
-        <CardTitle className="line-clamp-2 text-base leading-tight font-heading">
+        <CardTitle className="line-clamp-2 text-base leading-tight paper-title">
           <Link href={`/papers/${paper.id}`} className="hover:underline">
             {paper.title}
           </Link>

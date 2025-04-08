@@ -78,3 +78,10 @@
 .card-title {
     font-family: var(--font-heading);
 }
+
+
+/* Paper title specific style using Rubik font */
+
+.paper-title {
+    font-family: var(--font-rubik);
+}

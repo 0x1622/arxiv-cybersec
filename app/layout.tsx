@@ -1,6 +1,6 @@
 import "@/app/globals.css"
 import type { Metadata } from "next"
-import { Inter, Anta } from "next/font/google"
+import { Inter, Anta, Rubik } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/header"
 import { Analytics } from "@vercel/analytics/react"
@@ -12,12 +12,19 @@ import { ApiStatusAlert } from "@/components/api-status-alert"
 // Load Inter font for body text
 const inter = Inter({ subsets: ["latin"], display: 'swap', variable: '--font-inter' })
 
-// Load Anta font for headings
+// Load Anta font for general headings
 const anta = Anta({ 
   weight: '400',
   subsets: ["latin"], 
   display: 'swap',
   variable: '--font-anta' 
+})
+
+// Load Rubik font for paper titles only
+const rubik = Rubik({ 
+  subsets: ["latin"], 
+  display: 'swap',
+  variable: '--font-rubik' 
 })
 
 export const metadata: Metadata = {
@@ -31,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${anta.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${anta.variable} ${rubik.variable}`}>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <SearchProvider>
@@ -47,6 +54,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-import './globals.css'

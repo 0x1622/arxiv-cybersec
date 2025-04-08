@@ -49,7 +49,7 @@ export default async function PaperPage({
 
         <article className="mx-auto max-w-4xl space-y-8">
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{paper.title}</h1>
+            <h1 className="text-3xl font-bold tracking-tight md:text-4xl paper-title">{paper.title}</h1>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">

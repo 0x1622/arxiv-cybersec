@@ -22,7 +22,6 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)"],
         heading: ["var(--font-heading)"],
-        anta: ["var(--font-anta)"],
       },
       colors: {
         border: "hsl(var(--border))",
