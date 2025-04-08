@@ -45,7 +45,7 @@ export default function Header() {
             Home
           </Link>
           <Link href="/search" className="text-sm font-medium">
-            Search
+            
           </Link>
           <Link href="https://arxiv.org" target="_blank" rel="noopener noreferrer" className="text-sm font-medium">
             
