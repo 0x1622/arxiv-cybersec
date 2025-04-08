@@ -11,48 +11,18 @@ interface LatestPapersProps {
   page?: number
 }
 
-// Create fallback papers for static export
-const fallbackPapers: Paper[] = [
-  {
-    id: "2104.02767",
-    title: "Automatic Security Vulnerability Detection in Smart Contracts",
-    authors: ["John Doe", "Jane Smith"],
-    summary: "This paper presents a novel approach to automatically detect security vulnerabilities in smart contracts using static analysis techniques.",
-    publishedDate: "2021-04-06T00:00:00Z",
-    lastUpdatedDate: "2021-04-08T00:00:00Z", 
-    categories: ["cs.CR"],
-    pdf_url: "https://arxiv.org/pdf/2104.02767.pdf",
-    tags: ["security", "vulnerability"],
-  },
-  {
-    id: "2307.09658",
-    title: "Advancements in Zero-Knowledge Proof Systems",
-    authors: ["Alice Johnson", "Bob Williams"],
-    summary: "We explore recent advancements in zero-knowledge proof systems and their applications in privacy-preserving technologies.",
-    publishedDate: "2023-07-18T00:00:00Z",
-    lastUpdatedDate: "2023-07-20T00:00:00Z",
-    categories: ["cs.CR"],
-    pdf_url: "https://arxiv.org/pdf/2307.09658.pdf",
-    tags: ["crypto", "privacy"],
-  },
-];
-
 export async function LatestPapers({ query, year, category, tag, page = 1 }: LatestPapersProps) {
   let papers: Paper[] = [];
-  
-  // For static build, use fallback data initially
-  if (process.env.NEXT_STATIC_EXPORT === 'true' && typeof window === 'undefined') {
-    papers = fallbackPapers;
-  } else {
-    // If search parameters are provided, use searchPapers, otherwise use getLatestPapers
-    try {
-      papers = query || year || tag 
-        ? (await searchPapers({ query: query || "", year, category: category || "cs.CR", tag, page })).papers
-        : await getLatestPapers(page);
-    } catch (error) {
-      console.error("Error fetching papers:", error);
-      papers = fallbackPapers;
-    }
+
+  // Fetch papers dynamically based on props
+  try {
+    papers = query || year || tag 
+      ? (await searchPapers({ query: query || "", year, category: category || "cs.CR", tag, page })).papers
+      : await getLatestPapers(page);
+  } catch (error) {
+    console.error("Error fetching papers:", error);
+    // Return empty array or handle error as appropriate for dynamic rendering
+    papers = []; 
   }
 
   return (

@@ -6,18 +6,6 @@ import { CYBERSECURITY_CATEGORIES, CYBERSECURITY_TAGS } from "@/lib/types"
 import { Pagination } from "@/components/pagination"
 import { searchPapers } from "@/lib/arxiv"
 
-// Configure for static export with client-side data fetching
-export const dynamic = 'force-static'
-export const revalidate = false
-
-// Generate minimal static paths
-export function generateStaticParams() {
-  return [
-    // Home page without any params
-    {}
-  ]
-}
-
 export default async function Home({
   params,
   searchParams,

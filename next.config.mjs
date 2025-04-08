@@ -24,18 +24,13 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
-    // Configure for static export (required for GitHub Pages)
-    output: 'export',
-    distDir: 'out',
-    trailingSlash: true,
+    // Removed static export config to enable dynamic server-side rendering
     experimental: {
         webpackBuildWorker: true,
         parallelServerBuildTraces: true,
         parallelServerCompiles: true
-    },
-    env: {
-        NEXT_STATIC_EXPORT: 'true'
     }
+    // Removed env var related to static export
 }
 
 if (userConfig) {
