@@ -50,6 +50,8 @@ export default function RootLayout({
             </div>
           </SearchProvider>
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
