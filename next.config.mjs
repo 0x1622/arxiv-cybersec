@@ -31,7 +31,7 @@ const nextConfig = {
     experimental: {
         webpackBuildWorker: true,
         parallelServerBuildTraces: true,
-        parallelServerCompiles: true,
+        parallelServerCompiles: true
     },
     env: {
         NEXT_STATIC_EXPORT: 'true'

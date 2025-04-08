@@ -20,13 +20,15 @@ export function generateStaticParams() {
   return staticPaperIds.map(id => ({ id }))
 }
 
-interface PaperPageProps {
-  params: {
-    id: string
-  }
+type Params = {
+  id: string
 }
 
-export async function generateMetadata({ params }: PaperPageProps): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Params 
+}): Promise<Metadata> {
   try {
     const paper = await getPaperById(params.id)
 
@@ -42,7 +44,11 @@ export async function generateMetadata({ params }: PaperPageProps): Promise<Meta
   }
 }
 
-export default async function PaperPage({ params }: PaperPageProps) {
+export default async function PaperPage({ 
+  params 
+}: { 
+  params: Params 
+}) {
   try {
     const paper = await getPaperById(params.id)
 

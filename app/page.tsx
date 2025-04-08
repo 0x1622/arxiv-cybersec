@@ -18,23 +18,25 @@ export function generateStaticParams() {
   ]
 }
 
-interface HomeProps {
-  searchParams: {
+export default async function Home({
+  params,
+  searchParams,
+}: {
+  params: {}
+  searchParams?: {
     q?: string
     year?: string
     category?: string
     tag?: string
     page?: string
   }
-}
-
-export default async function Home({ searchParams }: HomeProps) {
+}) {
   // Parse search parameters
-  const query = searchParams.q || "";
-  const year = searchParams.year;
-  const category = searchParams.category || "cs.CR"; // Default to Cryptography and Security
-  const tag = searchParams.tag;
-  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const query = searchParams?.q || "";
+  const year = searchParams?.year;
+  const category = searchParams?.category || "cs.CR"; // Default to Cryptography and Security
+  const tag = searchParams?.tag;
+  const page = searchParams?.page ? parseInt(searchParams.page) : 1;
   
   return (
     <div className="container max-w-[1920px] mx-auto px-4 py-8">
