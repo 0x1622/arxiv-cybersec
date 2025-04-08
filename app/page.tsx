@@ -1,37 +1,38 @@
 import { SearchForm } from "@/components/search-form"
-import { LatestPapers } from "@/components/latest-papers"
 import { CategoryTags } from "@/components/category-tags"
 import { YearFilter } from "@/components/year-filter"
-import { CYBERSECURITY_CATEGORIES, CYBERSECURITY_TAGS } from "@/lib/types"
-import { Pagination } from "@/components/pagination"
 import { searchPapers } from "@/lib/arxiv"
-import { PaperCard } from "@/components/paper-card"
+import { InfiniteScrollPapers } from "@/components/infinite-scroll-papers"
+import Link from 'next/link'
 
 export default async function Home({
-  params,
   searchParams,
 }: {
-  params: { [key: string]: string | string[] | undefined };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  // Parse search parameters, providing defaults and handling potential arrays
+  // Parse search parameters
   const query = (searchParams?.q as string) || "";
   const year = searchParams?.year as string | undefined;
-  const category = (searchParams?.category as string) || "cs.CR"; // Default to Cryptography and Security
+  const category = (searchParams?.category as string) || "cs.CR";
   const tag = searchParams?.tag as string | undefined;
-  const page = searchParams?.page ? parseInt(searchParams.page as string) : 1;
+  const page = 1; // Always fetch page 1 initially
   
-  // Fetch search results directly to get pagination data
-  const { papers, totalResults, startIndex, itemsPerPage } = await searchPapers({
+  // Fetch only the FIRST page of search results
+  const { papers: initialPapers, totalResults } = await searchPapers({
     query,
     year,
     category,
     tag,
     page,
   });
-  
-  // Calculate total pages
-  const totalPages = Math.ceil(totalResults / itemsPerPage);
+
+  // Create a simplified searchParams object for the client component
+  const clientSearchParams = {
+    q: query,
+    year,
+    category,
+    tag,
+  };
   
   return (
     <div className="container max-w-[1920px] mx-auto px-4 py-8">
@@ -63,26 +64,26 @@ export default async function Home({
       <section>
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-heading">
-            {query || year || tag ? "Search Results" : "Latest Cybersecurity Research"}
+            {query || year || tag || category !== 'cs.CR' ? `Results (${totalResults})` : `Latest Cybersecurity Research (${totalResults})`}
           </h2>
-          {/* Optional: Display result count? e.g., <span className="text-muted-foreground">({totalResults} papers found)</span> */} 
-        </div>
-        {/* Render papers directly */} 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5">
-          {papers.reverse().map((paper) => (
-            <PaperCard key={paper.id} paper={paper} />
-          ))}
         </div>
 
-        {/* Add Pagination component if there are results */} 
-        {totalResults > 0 && (
-          <div className="mt-8 flex justify-center">
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              totalItems={totalResults}
-            />
+        {initialPapers.length === 0 ? (
+          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+            <h3 className="mb-2 text-xl font-medium">No results found</h3>
+            <p className="mb-6 text-muted-foreground">
+              Try adjusting your search or filters to find what you're looking for.
+            </p>
+            <Link href="/" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
+              Clear filters and return home
+            </Link>
           </div>
+        ) : (
+          <InfiniteScrollPapers 
+            initialPapers={initialPapers} 
+            initialTotalResults={totalResults} 
+            searchParams={clientSearchParams} 
+          />
         )}
       </section>
     </div>
