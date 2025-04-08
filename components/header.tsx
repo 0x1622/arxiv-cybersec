@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Database, Github, Menu } from "lucide-react"
+import { Database, Github, Menu, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -53,6 +53,12 @@ export default function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <ModeToggle />
+          <Button variant="ghost" size="icon" asChild>
+            <a href="https://x.com/0x1622" target="_blank" rel="noopener noreferrer">
+              <Twitter className="h-5 w-5" />
+              <span className="sr-only">Twitter/X</span>
+            </a>
+          </Button>
           <Button variant="ghost" size="icon" asChild>
             <a href="https://github.com/0x1622" target="_blank" rel="noopener noreferrer">
               <Github className="h-5 w-5" />
