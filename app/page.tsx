@@ -18,16 +18,13 @@ export function generateStaticParams() {
   ]
 }
 
-// Define standard Next.js 15 page props types
-type PageParams = { [key: string]: string | string[] | undefined };
-type SearchParams = { [key: string]: string | string[] | undefined };
-
-type Props = {
-  params: PageParams;
-  searchParams: SearchParams;
-};
-
-export default async function Home({ params, searchParams }: Props) {
+export default async function Home({
+  params,
+  searchParams,
+}: {
+  params: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   // Parse search parameters, providing defaults and handling potential arrays
   const query = (searchParams?.q as string) || "";
   const year = searchParams?.year as string | undefined;
