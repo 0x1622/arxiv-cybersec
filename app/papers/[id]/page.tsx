@@ -10,7 +10,10 @@ import { formatDate } from "@/lib/utils"
 
 // Configure for static export
 export const dynamic = 'force-static'
-export const revalidate = false 
+export const revalidate = false
+export const fetchCache = 'force-cache'
+export const runtime = 'nodejs'
+export const preferredRegion = 'auto'
 
 // Paper IDs for static generation
 const staticPaperIds = ["2104.02767", "2307.09658"]

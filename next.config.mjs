@@ -24,16 +24,21 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    // Explicitly configure for static export
+    output: 'export',
+    distDir: 'out',
+    trailingSlash: true,
+    // Disable server components for static export
     experimental: {
         webpackBuildWorker: true,
         parallelServerBuildTraces: true,
         parallelServerCompiles: true,
     },
-    output: 'export',
     basePath: '',
     assetPrefix: '/',
     env: {
         NEXT_STATIC_EXPORT: 'true',
+        NODE_ENV: 'production'
     }
 }
 
