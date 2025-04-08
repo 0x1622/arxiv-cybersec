@@ -6,9 +6,17 @@ import { CYBERSECURITY_CATEGORIES, CYBERSECURITY_TAGS } from "@/lib/types"
 import { Pagination } from "@/components/pagination"
 import { searchPapers } from "@/lib/arxiv"
 
-// Configure for dynamic content with real-time API
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// Configure for static export with client-side data fetching
+export const dynamic = 'force-static'
+export const revalidate = false
+
+// Generate minimal static paths
+export function generateStaticParams() {
+  return [
+    // Home page without any params
+    {}
+  ]
+}
 
 interface HomeProps {
   searchParams: {

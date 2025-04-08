@@ -8,9 +8,17 @@ import { Separator } from "@/components/ui/separator"
 import { getPaperById } from "@/lib/arxiv"
 import { formatDate } from "@/lib/utils"
 
-// Configure for dynamic content with real-time API
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// Configure for static export with client-side data fetching
+export const dynamic = 'force-static'
+export const revalidate = false
+
+// Paper IDs for static generation - minimal set for initial build
+const staticPaperIds = ["2104.02767", "2307.09658"]
+
+// Static params generator for Next.js static export
+export function generateStaticParams() {
+  return staticPaperIds.map(id => ({ id }))
+}
 
 interface PaperPageProps {
   params: {
