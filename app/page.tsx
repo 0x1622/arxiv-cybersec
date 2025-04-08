@@ -18,7 +18,7 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   // Parse search parameters safely - we need to use safely accessed properties in Next.js 15.2
-  const params = await Promise.resolve(searchParams); // Properly await searchParams
+  const params = searchParams;
   const query = params?.q ?? "";
   const year = params?.year ?? undefined;
   const category = params?.category ?? "cs.CR"; // Default to Cryptography and Security
