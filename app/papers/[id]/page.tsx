@@ -16,7 +16,7 @@ export const revalidate = false
 const staticPaperIds = ["2104.02767", "2307.09658"]
 
 // Static params generator for Next.js static export
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return staticPaperIds.map(id => ({ id }))
 }
 
