@@ -30,6 +30,9 @@ const rubik = Rubik({
 export const metadata: Metadata = {
   title: "CyberSec Research - Cybersecurity Research Papers",
   description: "Browse and search the latest cybersecurity research papers from arXiv",
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
