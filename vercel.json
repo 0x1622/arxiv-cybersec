@@ -3,9 +3,5 @@
     "buildCommand": "npm run build",
     "outputDirectory": "out",
     "framework": "nextjs",
-    "cleanUrls": true,
-    "routes": [{
-        "src": "/papers/(?<id>[^/]+)$",
-        "dest": "/papers/$id"
-    }]
+    "cleanUrls": true
 }
