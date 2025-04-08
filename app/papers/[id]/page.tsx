@@ -40,7 +40,7 @@ export default async function PaperPage({
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/search" className="flex items-center gap-1">
+            <Link href="/" className="flex items-center gap-1">
               <ArrowLeft className="h-4 w-4" />
               Back to search
             </Link>
