@@ -1,7 +1,5 @@
 {
     "version": 2,
     "buildCommand": "npm run build",
-    "outputDirectory": "out",
-    "framework": "nextjs",
-    "cleanUrls": true
+    "outputDirectory": "out"
 }
