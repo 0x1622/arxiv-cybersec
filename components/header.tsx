@@ -42,7 +42,7 @@ export default function Header() {
         </div>
         <nav className="hidden md:flex md:items-center md:gap-6">
           <Link href="/" className="text-sm font-medium">
-            Home
+            
           </Link>
           <Link href="/search" className="text-sm font-medium">
             
