@@ -14,6 +14,16 @@ interface PaperPageProps {
   }
 }
 
+// Add generateStaticParams function for static export
+export async function generateStaticParams() {
+  // For static export, provide a minimal set of paper IDs
+  // In a real-world scenario, you might want to fetch the most popular papers
+  return [
+    { id: "2104.02767" }, // Example ID for a cybersecurity paper
+    { id: "2307.09658" }, // Example ID for another paper
+  ]
+}
+
 export async function generateMetadata({ params }: PaperPageProps): Promise<Metadata> {
   try {
     const paper = await getPaperById(params.id)

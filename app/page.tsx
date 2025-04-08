@@ -6,6 +6,18 @@ import { CYBERSECURITY_CATEGORIES, CYBERSECURITY_TAGS } from "@/lib/types"
 import { Pagination } from "@/components/pagination"
 import { searchPapers } from "@/lib/arxiv"
 
+// Configure for static export
+export const dynamic = 'force-static'
+export const revalidate = false
+
+// Pre-generate the minimal set of static paths
+export function generateStaticParams() {
+  return [
+    // Home page without any params
+    {}
+  ]
+}
+
 interface HomeProps {
   searchParams: {
     q?: string
@@ -17,37 +29,12 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  // Parse search parameters safely - we need to use safely accessed properties in Next.js 15.2
-  const params = searchParams;
-  const query = params?.q ?? "";
-  const year = params?.year ?? undefined;
-  const category = params?.category ?? "cs.CR"; // Default to Cryptography and Security
-  const tag = params?.tag ?? undefined;
-  const page = params?.page && !isNaN(parseInt(params.page)) 
-    ? parseInt(params.page) 
-    : 1;
-
-  // Display title based on filters
-  let pageTitle = "Latest Cybersecurity Research"
+  // For static export, we'll provide default content regardless of search params
+  // This will be enhanced with client-side fetching for actual search results after hydration
   
-  if (query) pageTitle = `Results for "${query}"`
-  if (tag) pageTitle = `${CYBERSECURITY_TAGS.find(t => t.id === tag)?.name || 'Tag'} Research`
-  if (category !== "cs.CR") pageTitle = `${CYBERSECURITY_CATEGORIES.find(c => c.id === category)?.name || 'Category'} Research`
-  if (year) pageTitle = `${year} ${pageTitle}`
-
-  // Get the search results to get the total count
-  const { totalResults } = await searchPapers({
-    query,
-    year,
-    category,
-    tag,
-    page: 1
-  });
-
-  // Calculate total pages (default to at least 1 page)
-  const itemsPerPage = 18;
-  const totalPages = Math.max(1, Math.ceil(totalResults / itemsPerPage));
-
+  // Default values for static generation
+  const defaultCategory = "cs.CR"; // Default to Cryptography and Security
+  
   return (
     <div className="container max-w-[1920px] mx-auto px-4 py-8">
       <section className="mb-8 text-center">
@@ -55,7 +42,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <p className="mx-auto mb-8 max-w-2xl text-muted-foreground">
           Browse, search and filter the latest cybersecurity research papers from arXiv
         </p>
-        <SearchForm className="mx-auto max-w-2xl" defaultValue={query} />
+        <SearchForm className="mx-auto max-w-2xl" defaultValue="" />
       </section>
 
       <section className="mb-8">
@@ -65,38 +52,27 @@ export default async function Home({ searchParams }: HomeProps) {
         <div className="flex flex-wrap items-start gap-6">
           <div className="flex-1">
             <CategoryTags 
-              selectedCategory={category} 
-              selectedTag={tag}
+              selectedCategory={defaultCategory} 
+              selectedTag={undefined}
             />
           </div>
           <div className="w-48">
-            <YearFilter selectedYear={year} />
+            <YearFilter selectedYear={undefined} />
           </div>
         </div>
       </section>
 
       <section>
         <div className="mb-6">
-          <h2 className="text-2xl font-heading">{pageTitle}</h2>
-          {year && <p className="text-sm text-muted-foreground">Showing papers from {year}</p>}
+          <h2 className="text-2xl font-heading">Latest Cybersecurity Research</h2>
         </div>
         <LatestPapers 
-          query={query}
-          year={year}
-          category={category}
-          tag={tag}
-          page={page}
+          query=""
+          year={undefined}
+          category={defaultCategory}
+          tag={undefined}
+          page={1}
         />
-        
-        {totalPages > 1 && (
-          <div className="mt-8">
-            <Pagination 
-              currentPage={page} 
-              totalPages={totalPages} 
-              totalItems={totalResults} 
-            />
-          </div>
-        )}
       </section>
     </div>
   )

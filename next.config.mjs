@@ -32,6 +32,9 @@ const nextConfig = {
     output: 'export',
     basePath: '',
     assetPrefix: '/',
+    env: {
+        NEXT_STATIC_EXPORT: 'true',
+    }
 }
 
 if (userConfig) {
