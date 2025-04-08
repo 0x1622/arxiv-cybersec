@@ -8,23 +8,22 @@ import { Separator } from "@/components/ui/separator"
 import { getPaperById } from "@/lib/arxiv"
 import { formatDate } from "@/lib/utils"
 
-interface PaperPageProps {
-  params: {
-    id: string
-  }
-}
-
 // Configure for static export
 export const dynamic = 'force-static'
 export const revalidate = false 
 
-// Fixed generateStaticParams function for static export
+// Paper IDs for static generation
+const staticPaperIds = ["2104.02767", "2307.09658"]
+
+// Static params generator for Next.js static export
 export function generateStaticParams() {
-  // For static export, provide a minimal set of paper IDs
-  return [
-    { id: "2104.02767" },
-    { id: "2307.09658" },
-  ]
+  return staticPaperIds.map(id => ({ id }))
+}
+
+interface PaperPageProps {
+  params: {
+    id: string
+  }
 }
 
 export async function generateMetadata({ params }: PaperPageProps): Promise<Metadata> {
