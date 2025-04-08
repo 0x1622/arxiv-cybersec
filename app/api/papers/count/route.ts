@@ -1,8 +1,9 @@
 import { searchPapers } from "@/lib/arxiv"
 import { NextRequest, NextResponse } from "next/server"
 
-// Add dynamic configuration for static export
+// Add proper static export configuration
 export const dynamic = "force-static"
+export const revalidate = false
 
 export async function GET(request: NextRequest) {
   // Get the URL search params
