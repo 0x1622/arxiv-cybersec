@@ -18,25 +18,22 @@ export function generateStaticParams() {
   ]
 }
 
-export default async function Home({
-  params,
-  searchParams,
-}: {
-  params: {}
-  searchParams?: {
-    q?: string
-    year?: string
-    category?: string
-    tag?: string
-    page?: string
-  }
-}) {
-  // Parse search parameters
-  const query = searchParams?.q || "";
-  const year = searchParams?.year;
-  const category = searchParams?.category || "cs.CR"; // Default to Cryptography and Security
-  const tag = searchParams?.tag;
-  const page = searchParams?.page ? parseInt(searchParams.page) : 1;
+// Define standard Next.js 15 page props types
+type PageParams = { [key: string]: string | string[] | undefined };
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+type Props = {
+  params: PageParams;
+  searchParams: SearchParams;
+};
+
+export default async function Home({ params, searchParams }: Props) {
+  // Parse search parameters, providing defaults and handling potential arrays
+  const query = (searchParams?.q as string) || "";
+  const year = searchParams?.year as string | undefined;
+  const category = (searchParams?.category as string) || "cs.CR"; // Default to Cryptography and Security
+  const tag = searchParams?.tag as string | undefined;
+  const page = searchParams?.page ? parseInt(searchParams.page as string) : 1;
   
   return (
     <div className="container max-w-[1920px] mx-auto px-4 py-8">
